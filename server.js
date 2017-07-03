@@ -6,14 +6,16 @@ const morgan = require("morgan")
 const app = express();
 const port = process.env.PORT || 3000;
 const mustacheExpress = require('mustache-express');
-
+const expressValidator = require('express-validator')
 // MIDDLEWARE
 app.engine('mustache', mustacheExpress());
 app.set('views', './public')
 app.use("/", express.static("./public"));
 app.set('view engine', 'mustache')
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 app.use(morgan("dev"));
+app.use(expressValidator());
 
 // ROUTES
 app.get("/", function(req, res){
@@ -33,7 +35,25 @@ app.get("/signup", function(req, res){
 })
 
 app.post("/signup", function(req, res){
-
+    var errors;
+    if (req.body.password === req.body.conf_password){
+        var userObj = {
+            fname: req.body.fname,
+            lname: req.body.lname,
+            username: req.body.username,
+            password: req.body.password
+        };
+        var newUser = models.user.build(userObj);
+        newUser.save().then(function(savedUser){
+            res.render("login", {msg:'User was created successfully!'});
+        }).catch(function(err){
+        res.status(500).render("signup", {errors :'Please select a different username, that username is taken!'});
+        });
+    }
+    else {
+        errors = 'The passwords do not match, please try again!';
+        res.render('signup', {errors:errors});
+    }   
 })
 
 app.get("/post", function(req, res){

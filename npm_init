@@ -5,6 +5,8 @@ npm install mustache-express --save
 npm install --save body-parser
 npm install sequelize pg --save
 npm install morgan --save
+npm install express-validator
+npm install express-session
 #npm install --save express-validator
 
 ###manual run

@@ -8,6 +8,27 @@
 .nav a:not(:last-child){
     border-right: 2px black solid;
 }
+.signup h2{
+    margin: 30px 45px 15px 45px;
+    font-size: 34px;
+}
+.signup_form input[type="text"],input[type="password"]{
+    width: 25%;
+    margin: 10px 45px;
+    height: 3vh;
+}
+.signup_form input[type="submit"]{
+    background-color: lightgrey;
+    width: 10vw;
+    box-shadow: 1px 2px;
+    margin: 10px 45px;
+    width: 13%;
+    -webkit-appearance: button;
+}
 .signup_form{
-    
+    margin-top: 25px;
+}
+.signup h4{
+    margin: 30px 45px 15px 45px;
+    font-size: 26px;
 }
