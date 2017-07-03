@@ -1,0 +1,13 @@
+.nav{
+    margin: 20px;
+}
+.nav_link{
+    padding: 5px 25px;
+    text-decoration: none;
+}
+.nav a:not(:last-child){
+    border-right: 2px black solid;
+}
+.signup_form{
+    
+}

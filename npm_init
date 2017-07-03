@@ -1,0 +1,16 @@
+#dot execute this file from within the project root directory
+npm init -y
+npm install express --save
+npm install mustache-express --save
+npm install --save body-parser
+npm install sequelize pg --save
+npm install morgan --save
+#npm install --save express-validator
+
+###manual run
+#sequelize init
+#update config/config.json
+#createdb 
+#sequelize db:migrate
+#sequelize model:create --name MODEL_NAME --attributes 'col1:type'
+#sequelize db:migrate
