@@ -8,10 +8,16 @@
     </head>
     <body>
         <div class="nav">
-            <a class="nav_link" href="">Babble</a>
+            <a class="nav_link" href="/">Babble</a>
             <a class="nav_link" href="/post">Create a new Bab</a>
-            <a class="nav_link" href="/login">Log in</a>
+            {{#username}}
+            <a class="nav_link" href="/login">Logged in as {{username}}
+            <a class="nav_link" href="/logout">Log out</a>
+            {{/username}}
+            {{^username}}
+            <a class="nav_link" href="/login">Log In</a>
             <a class="nav_link" href="/signup">Sign Up</a>
+            {{/username}}
         </div>
     </body>
 </html>

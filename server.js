@@ -26,7 +26,11 @@ app.get("/", function(req, res){
 });
 
 app.get("/login", function(req, res){
-    res.render('login');
+    var msg;
+    if (req.session.user){
+        msg = 'Welcome '+ req.session.user+'!'
+    }
+    res.render('login',{msg: msg});
 })
 
 // app.get("/favorites", function(req, res){
@@ -40,9 +44,10 @@ app.get("/login", function(req, res){
 app.post("/login", function(req, res){
     console.log(req.body.username);
     console.log(req.body.password);
-    models.user.findOne({where:{"username":req.body.username, "password":req.body.password}}).then(function(data){
+    models.user.findOne({where:{"username":req.body.username.toLowerCase(), "password":req.body.password.toLowerCase()}}).then(function(data){
+    console.log('made it ',data);
     req.session.user = data["username"];
-    res.render('index');
+    res.redirect('/');
 }).catch(function(err){
     res.redirect("login", {msg:err});
     })
@@ -56,10 +61,10 @@ app.post("/signup", function(req, res){
     var errors;
     if (req.body.password === req.body.conf_password){
         var userObj = {
-            fname: req.body.fname,
-            lname: req.body.lname,
-            username: req.body.username,
-            password: req.body.password
+            fname: req.body.fname.toLowerCase(),
+            lname: req.body.lname.toLowerCase(),
+            username: req.body.username.toLowerCase(),
+            password: req.body.password.toLowerCase()
         };
         var newUser = models.user.build(userObj);
         newUser.save().then(function(savedUser){
