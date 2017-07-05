@@ -12,7 +12,7 @@
     margin: 30px 45px 15px 45px;
     font-size: 34px;
 }
-.signup_form input[type="text"],input[type="password"]{
+.signup_form input[type="text"],.signup_form input[type="password"]{
     width: 25%;
     margin: 10px 45px;
     height: 3vh;
