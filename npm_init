@@ -16,3 +16,5 @@ npm install express-session
 #sequelize db:migrate
 #sequelize model:create --name MODEL_NAME --attributes 'col1:type'
 #sequelize db:migrate
+#sequelize migration:create
+##sequelize db:migrate:undo

@@ -45,7 +45,8 @@ app.post("/signup", function(req, res){
         };
         var newUser = models.user.build(userObj);
         newUser.save().then(function(savedUser){
-            res.render("login", {msg:'User was created successfully!'});
+            msg = "User was created successfully";
+            res.redirect("signup", {errors:msg});
         }).catch(function(err){
         res.status(500).render("signup", {errors :'Please select a different username, that username is taken!'});
         });
