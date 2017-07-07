@@ -99,23 +99,10 @@ app.post("/post", function(req, res){
 
 })
 
-
-// app.post("/favsongs", function(req, res){
-//   var songobj = {songid: req.body.id, 
-//               genre: req.body.genre,
-//               title: req.body.title,
-//               description: req.body.description,
-//               avatar_url: req.body.user.avatar_url,
-//               stream_url: req.body.stream_url,
-//               user: req.body.user.username  
-//               }
-//   models.songs.build(songobj)
-//   .save().then(function(savedsong){
-//     res.redirect("/");
-//   }).catch(function(err){
-//     res.status(500).send(err);
-//   });
-// })
+app.get("/logout", function(req, res) {
+  req.session.destroy();
+  res.redirect("/");
+});
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}.`);
