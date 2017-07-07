@@ -22,15 +22,21 @@ app.use(expressValidator());
 
 // ROUTES
 app.get("/", function(req, res){
+    if (req.session.user){
+        var username = req.session.user.charAt(0).toUpperCase() + req.session.user.slice(1);
+        res.render('index',{username:username});
+    } else {
     res.render('index');
+}
 });
 
 app.get("/login", function(req, res){
     var msg;
     if (req.session.user){
-        msg = 'Welcome '+ req.session.user+'!'
+        msg = 'Welcome '+ req.session.user+'!';
+        var username = req.session.user.charAt(0).toUpperCase() + req.session.user.slice(1);
     }
-    res.render('login',{msg: msg});
+    res.render('login',{msg: msg, username: username});
 })
 
 // app.get("/favorites", function(req, res){
@@ -45,7 +51,6 @@ app.post("/login", function(req, res){
     console.log(req.body.username);
     console.log(req.body.password);
     models.user.findOne({where:{"username":req.body.username.toLowerCase(), "password":req.body.password.toLowerCase()}}).then(function(data){
-    console.log('made it ',data);
     req.session.user = data["username"];
     res.redirect('/');
 }).catch(function(err){
@@ -54,12 +59,18 @@ app.post("/login", function(req, res){
 })
 
 app.get("/signup", function(req, res){
-    res.render("signup");
+    if (req.session.user){
+        msg = 'Welcome '+ req.session.user+'!';
+        var username = req.session.user.charAt(0).toUpperCase() + req.session.user.slice(1);
+        res.render("signup", {username: username, msg: msg})
+    } else{
+        res.render("signup");
+    }
 })
 
 app.post("/signup", function(req, res){
     var errors;
-    if (req.body.password === req.body.conf_password){
+    if (req.body.password.toLowerCase() === req.body.conf_password.toLowerCase()){
         var userObj = {
             fname: req.body.fname.toLowerCase(),
             lname: req.body.lname.toLowerCase(),
@@ -69,7 +80,7 @@ app.post("/signup", function(req, res){
         var newUser = models.user.build(userObj);
         newUser.save().then(function(savedUser){
             msg = "User was created successfully";
-            res.redirect("signup", {errors:msg});
+            res.render("signup", {errors:msg});
         }).catch(function(err){
         res.status(500).render("signup", {errors :'Please select a different username, that username is taken!'});
         });
