@@ -4,6 +4,7 @@
 .nav_link{
     padding: 5px 25px;
     text-decoration: none;
+    color: #551A8B;
 }
 .nav a:not(:last-child){
     border-right: 2px black solid;
