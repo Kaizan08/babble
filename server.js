@@ -161,8 +161,7 @@ app.get("/posts/:id", (req, res) => {
       ]
     })
     .then(function(result) {
-      console.log("result: ", result);
-      res.json(result);
+      res.render("posts", {post:result, user:req.session.user});
     })
     .catch(function(err) {
       res.status(500).send(err);

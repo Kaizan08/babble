@@ -4,23 +4,33 @@
         <title></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="./style.css" rel="stylesheet">
+        <link href="../style.css" rel="stylesheet">
     </head>
     <body>
     <div class="nav">
             <a class="nav_link" href="/">Babble</a>
             <a class="nav_link" href="/createbab">Create a new Bab</a>
-            {{#username}}
-            <a class="nav_link">Logged in as {{username}}</a>
+            {{#user}}
+            <a class="nav_link">Logged in as {{user}}</a>
             <a class="nav_link" href="/logout">Log out</a>
-            {{/username}}
-            {{^username}}
+            {{/user}}
+            {{^user}}
             <a class="nav_link" href="/login">Log In</a>
             <a class="nav_link" href="/signup">Sign Up</a>
-            {{/username}}
+            {{/user}}
     </div>
     <div class="post_container">
-        
+        {{#post}}
+        <p>{{babble}}</p>
+        <p>These are the users that 'liked' this post!</p>
+        <ul>
+            {{#likes}}
+                {{#user}}
+            <li>{{username}}</li>
+                {{/user}}
+            {{/likes}}
+        </ul>
+        {{/post}}
     </div>
     </body>
 </html>
