@@ -9,7 +9,7 @@
     <body>
         <div class="nav">
             <a class="nav_link" href="/">Babble</a>
-            <a class="nav_link" href="/post">Create a new Bab</a>
+            <a class="nav_link" href="/createbab">Create a new Bab</a>
             {{#username}}
             <a class="nav_link">Logged in as {{username}}</a>
             <a class="nav_link" href="/logout">Log out</a>
@@ -22,17 +22,37 @@
         <div class="post_container">
             {{#posts}}
                 <div class="posts">
+                    {{^author.username}}
+                    <p>{{username}}: {{babble}}<br>
+                    {{/author.username}}
+                    {{#author.username}}
                     <p>{{author.username}}: {{babble}}<br>
+                    {{/author.username}}
                     {{updatedAt}}<br>
                     {{#likes.length}}
-                        {{likes}}
+                        <a href="/posts/{{id}}">{{likes.length}}</a> people like this!
                     {{/likes.length}}
                     {{^likes}}
-                        No likes yet
+                        No likes yet!
                     {{/likes}}
                 </div>
                 <div class="buttons">
-                    <button click="like"
+                    {{#author.username}}
+                    {{#username}}
+                        {{#likes.authorid}}
+                    <form action="/like" method="POST">
+                    <input type="hidden" name="likethis" value="{{id}}">
+                    <input type="submit" value="LIKE">
+                    </form>
+                        {{/likes.authorid}}
+                    {{/username}}
+                    {{/author.username}}
+                    {{^author.username}}
+                    <form action="/delete" method="POST">
+                    <input type="hidden" name="deletethis" value="{{id}}">
+                    <input type="submit" value="DELETE POST">
+                    </form>
+                    {{/author.username}}
                 </div>
             {{/posts}}
             {{^posts}}

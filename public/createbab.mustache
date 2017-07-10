@@ -19,18 +19,11 @@
             <a class="nav_link" href="/signup">Sign Up</a>
             {{/username}}
         </div>
-        <div class="login">
-            {{#msg}}
-            <h4>{{.}}</h4>
-            {{/msg}}
-            {{^msg}}
-            <h1>Please login</h1>
-            <form action="/login" method="POST">
-                <input type="text" name="username" placeholder="Input your username"><br>
-                <input type="password" name="password" placeholder="Input your password"><br>
-            <input type="submit">
+        <div class="post_form">
+            <form action="/createbab" method="POST">
+                <textarea rows="10" cols="100" name="bab" placeholder="Type your bab here"></textarea><br>
+                <input type="submit">
             </form>
-            {{/msg}}
         </div>
     </body>
 </html>

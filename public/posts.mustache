@@ -7,7 +7,7 @@
         <link href="./style.css" rel="stylesheet">
     </head>
     <body>
-        <div class="nav">
+    <div class="nav">
             <a class="nav_link" href="/">Babble</a>
             <a class="nav_link" href="/createbab">Create a new Bab</a>
             {{#username}}
@@ -15,22 +15,12 @@
             <a class="nav_link" href="/logout">Log out</a>
             {{/username}}
             {{^username}}
-            <a class="nav_link" href="">Log in</a>
+            <a class="nav_link" href="/login">Log In</a>
             <a class="nav_link" href="/signup">Sign Up</a>
             {{/username}}
-        </div>
-        <div class="login">
-            {{#msg}}
-            <h4>{{.}}</h4>
-            {{/msg}}
-            {{^msg}}
-            <h1>Please login</h1>
-            <form action="/login" method="POST">
-                <input type="text" name="username" placeholder="Input your username"><br>
-                <input type="password" name="password" placeholder="Input your password"><br>
-            <input type="submit">
-            </form>
-            {{/msg}}
-        </div>
+    </div>
+    <div class="post_container">
+        
+    </div>
     </body>
 </html>
