@@ -10,8 +10,20 @@
         <div class="nav">
             <a class="nav_link" href="/">Babble</a>
             <a class="nav_link" href="/post">Create a new Bab</a>
-            <a class="nav_link" href="/login">Log in</a>
+            {{#username}}
+            <a class="nav_link">Logged in as {{username}}</a>
+            <a class="nav_link" href="/logout">Log out</a>
+            {{/username}}
+            {{^username}}
+            <a class="nav_link" href="">Log in</a>
             <a class="nav_link" href="/signup">Sign Up</a>
+            {{/username}}
+        </div>
+        <div class="post_form">
+            <form action="/post" method="POST">
+                <textarea rows="10" cols="100" name="bab" placeholder="Type your bab here"></textarea><br>
+                <input type="submit">
+            </form>
         </div>
     </body>
 </html>

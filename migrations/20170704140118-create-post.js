@@ -9,7 +9,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       babble: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT, 
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

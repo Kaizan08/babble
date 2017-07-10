@@ -22,12 +22,30 @@ app.use(expressValidator());
 
 // ROUTES
 app.get("/", function(req, res){
-    if (req.session.user){
-        var username = req.session.user.charAt(0).toUpperCase() + req.session.user.slice(1);
-        res.render('index',{username:username});
-    } else {
-    res.render('index');
-}
+    var posts;
+    // ,attributes:['id','babble','userId','updatedAt']}
+    models.post.findAll({include: [{model:models.user, include: [{
+        model: models.like
+    }]}], order: [['id','DESC']]}).then(function(data){
+        console.log(data);
+        if (req.session.user){
+            var username = req.session.user.charAt(0).toUpperCase() + req.session.user.slice(1);
+            res.render('index',{username:username, posts:data});
+        } else {
+        return res.render('index',{posts:data});
+        }
+    }).catch(function(err){
+    res.render("index");
+})
+});
+
+app.get("/blowup", function(req, res){
+    var posts;
+    // ,attributes:['id','babble','userId','updatedAt']}
+    //finds all of the posts and associates users to each with that user object
+    models.post.findAll({include: [{model:models.user}]}).then(function(data){
+        res.json(data);
+    })
 });
 
 app.get("/login", function(req, res){
@@ -39,18 +57,12 @@ app.get("/login", function(req, res){
     res.render('login',{msg: msg, username: username});
 })
 
-// app.get("/favorites", function(req, res){
-//   models.songs.findAll().then(function(foundSongs){
-//     res.render("favorites", {songs:foundSongs});
-//   }).catch(function(err){
-//     res.status(500).send(err);
-//   })
-// })
 
 app.post("/login", function(req, res){
     console.log(req.body.username);
     console.log(req.body.password);
     models.user.findOne({where:{"username":req.body.username.toLowerCase(), "password":req.body.password.toLowerCase()}}).then(function(data){
+    req.session.userid = data["id"];
     req.session.user = data["username"];
     res.redirect('/');
 }).catch(function(err){
@@ -92,11 +104,26 @@ app.post("/signup", function(req, res){
 })
 
 app.get("/post", function(req, res){
-    res.render("post");
+    if (req.session.user){
+        var username = req.session.user.charAt(0).toUpperCase() + req.session.user.slice(1);
+        res.render("post", {username: username})
+    } else{
+        res.redirect("login");
+    }
 })
 
 app.post("/post", function(req, res){
-
+    var bab = {
+        "babble": req.body.bab,
+        "userId": req.session.userid
+    }
+    console.log(bab);
+    var posts = models.post.build(bab);
+    posts.save().then(function(successfulpost){
+        res.redirect("/")
+    }).catch(function(err){
+        res.status(500).render("post", {errors :err});
+    });
 })
 
 app.get("/logout", function(req, res) {
