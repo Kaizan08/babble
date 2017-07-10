@@ -19,14 +19,26 @@
             <a class="nav_link" href="/signup">Sign Up</a>
             {{/username}}
         </div>
-        {{#posts}}
-            <div class="posts">
-            
-            </div>
-        {{/posts}}
-        {{^posts}}
-            <div class="no_posts">
-            </div>
-        {{/posts}}
+        <div class="post_container">
+            {{#posts}}
+                <div class="posts">
+                    <p>{{author.username}}: {{babble}}<br>
+                    {{updatedAt}}<br>
+                    {{#likes.length}}
+                        {{likes}}
+                    {{/likes.length}}
+                    {{^likes}}
+                        No likes yet
+                    {{/likes}}
+                </div>
+                <div class="buttons">
+                    <button click="like"
+                </div>
+            {{/posts}}
+            {{^posts}}
+                <div class="no_posts">
+                </div>
+            {{/posts}}
+        </div>
     </body>
 </html>

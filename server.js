@@ -9,6 +9,7 @@ const port = process.env.PORT || 3000;
 const mustacheExpress = require('mustache-express');
 const expressValidator = require('express-validator')
 const sessionConfig = require("./sessionConfig");
+const sequelize = require('sequelize');
 // MIDDLEWARE
 app.engine('mustache', mustacheExpress());
 app.set('views', './public')
@@ -22,30 +23,17 @@ app.use(expressValidator());
 
 // ROUTES
 app.get("/", function(req, res){
-    var posts;
-    // ,attributes:['id','babble','userId','updatedAt']}
-    models.post.findAll({include: [{model:models.user, include: [{
-        model: models.like
-    }]}], order: [['id','DESC']]}).then(function(data){
-        console.log(data);
+    models.post.findAll({include: [{model:models.user, as: "author"},{model:models.like, as: "likes"}],order: [['id','DESC']]}).then(function(data){
         if (req.session.user){
             var username = req.session.user.charAt(0).toUpperCase() + req.session.user.slice(1);
-            res.render('index',{username:username, posts:data});
+            res.json(data);
+            // res.render('index',{username:username, posts:data});
         } else {
         return res.render('index',{posts:data});
         }
     }).catch(function(err){
     res.render("index");
 })
-});
-
-app.get("/blowup", function(req, res){
-    var posts;
-    // ,attributes:['id','babble','userId','updatedAt']}
-    //finds all of the posts and associates users to each with that user object
-    models.post.findAll({include: [{model:models.user}]}).then(function(data){
-        res.json(data);
-    })
 });
 
 app.get("/login", function(req, res){
@@ -64,7 +52,7 @@ app.post("/login", function(req, res){
     models.user.findOne({where:{"username":req.body.username.toLowerCase(), "password":req.body.password.toLowerCase()}}).then(function(data){
     req.session.userid = data["id"];
     req.session.user = data["username"];
-    res.redirect('/');
+    res.redirect('/post');
 }).catch(function(err){
     res.redirect("login", {msg:err});
     })
