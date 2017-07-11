@@ -35,24 +35,26 @@
                     {{^likes}}
                         No likes yet!
                     {{/likes}}
-                </div>
-                <div class="buttons">
-                    {{#author.username}}
-                    {{#username}}
-                        {{#likes.authorid}}
-                    <form action="/like" method="POST">
-                    <input type="hidden" name="likethis" value="{{id}}">
-                    <input type="submit" value="LIKE">
-                    </form>
-                        {{/likes.authorid}}
-                    {{/username}}
-                    {{/author.username}}
-                    {{^author.username}}
-                    <form action="/delete" method="POST">
-                    <input type="hidden" name="deletethis" value="{{id}}">
-                    <input type="submit" value="DELETE POST">
-                    </form>
-                    {{/author.username}}
+                    <span>
+                        {{#author.username}}
+                        {{#username}}
+                            {{^userId}}
+                            {{^likes.postid}}
+                        <form action="/like" method="POST">
+                        <input type="hidden" name="likethis" value="{{id}}">
+                        <input type="submit" class="buttons" value="LIKE">
+                        </form>
+                            {{/likes.postid}}
+                            {{/userId}}
+                        {{/username}}
+                        {{/author.username}}
+                        {{^author.username}}
+                        <form action="/delete" method="POST">
+                        <input type="hidden" name="deletethis" value="{{id}}">
+                        <input type="submit" class="buttons" value="DELETE POST">
+                        </form>
+                        {{/author.username}}
+                    </span>
                 </div>
             {{/posts}}
             {{^posts}}

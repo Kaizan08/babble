@@ -33,11 +33,15 @@ app.get("/", function(req, res) {
     })
     .then(function(data) {
       for (var i = 0; i < data.length; i++) {
+        //does delete
         if (data[i].author.username == req.session.user) {
           data[i].author.username = false;
         }
-        if (data[i].likes.authorid == req.session.userid){
-          data[i].author.authorid = false;
+        if (data[i].author.id !== req.session.userid){
+          data[i].userId = false;
+        }
+        for (req.session.userid in data[i].likes){
+          data[i].likes.postid = true;
         }
       }
       if (req.session.user) {
@@ -170,8 +174,10 @@ app.get("/posts/:id", (req, res) => {
 
 app.post("/like", (req, res) => {
   var output = req.body.likethis;
+  console.log(output);
+  console.log(req.session.userid);
   models.like
-    .upsert({ postid: output, authorid: req.session.userid })
+    .build({ postid: output, authorid: req.session.userid }).save()
     .then(function(updatedrecord) {
       res.redirect("/");
     });

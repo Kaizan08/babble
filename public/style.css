@@ -4,7 +4,7 @@
 .nav_link{
     padding: 5px 25px;
     text-decoration: none;
-    color: #551A8B;
+    color: black;
 }
 .nav a:not(:last-child){
     border-right: 2px black solid;
@@ -14,16 +14,18 @@
     font-size: 34px;
 }
 .signup_form input[type="text"],.signup_form input[type="password"]{
-    width: 25%;
-    margin: 10px 45px;
     height: 3vh;
+    width: 35vh;
+    margin: 10px 45px 10px 45px;
+    padding-left: 10px;
 }
 .signup_form input[type="submit"]{
-    background-color: lightgrey;
-    width: 10vw;
-    box-shadow: 1px 2px;
-    margin: 10px 45px;
-    width: 13%;
+    height: 4vh;
+    width: 16vh;
+    padding: 0px;
+    border: solid 1px black;
+    font-size: 16px;
+    margin: 10px 45px 10px 45px;
     -webkit-appearance: button;
 }
 .signup_form{
@@ -32,4 +34,71 @@
 .signup h4{
     margin: 30px 45px 15px 45px;
     font-size: 26px;
+}
+.post_container{
+    margin: 3%;
+}
+.post_container div:nth-child(odd){
+    background: lightgrey;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.post_container div:nth-child(even){
+    background: white;
+    margin-left: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.posts{
+    border: black 1px solid;
+    margin: 1%;
+    padding: 0px 25px;
+    box-shadow: 1px 2px;
+}
+body{
+    background: mediumseagreen;
+}
+.login{
+    margin: 30px 45px 15px 45px;
+}
+.loginform input[type="text"],input[type="password"]{
+    margin: 0 0px 15px;
+    height: 3vh;
+    width: 35vh;
+    padding-left: 10px
+}
+.loginform input[type="submit"]{
+    height: 4vh;
+    width: 16vh;
+    padding: 0px;
+    border: solid 1px black;
+    font-size: 16px;
+    -webkit-appearance: button;
+}
+.buttons{
+    border: 1px solid black;
+    height: 3vh;
+    width: 16vh;
+    padding: 0;
+    font-size: 12px;
+    -webkit-appearance: button;
+    box-shadow: 1px 2px;
+}
+.post_form{
+    margin: 30px 45px 15px 45px;
+}
+textarea{
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+.bab input[type="submit"]{
+    border: 1px solid black;
+    height: 4vh;
+    width: 16vh;
+    padding: 0;
+    font-size: 16px;
+    -webkit-appearance: button;
+    box-shadow: 1px 2px;
 }
