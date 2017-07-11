@@ -39,12 +39,12 @@
                         {{#author.username}}
                         {{#username}}
                             {{^userId}}
-                            {{^likes.postid}}
+                            {{#author.lname}}
                         <form action="/like" method="POST">
                         <input type="hidden" name="likethis" value="{{id}}">
                         <input type="submit" class="buttons" value="LIKE">
                         </form>
-                            {{/likes.postid}}
+                            {{/author.lname}}
                             {{/userId}}
                         {{/username}}
                         {{/author.username}}

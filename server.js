@@ -32,6 +32,7 @@ app.get("/", function(req, res) {
       order: [["id", "DESC"]]
     })
     .then(function(data) {
+      // res.json(data)
       for (var i = 0; i < data.length; i++) {
         //does delete
         if (data[i].author.username == req.session.user) {
@@ -40,8 +41,12 @@ app.get("/", function(req, res) {
         if (data[i].author.id !== req.session.userid){
           data[i].userId = false;
         }
-        for (req.session.userid in data[i].likes){
-          data[i].likes.postid = true;
+        if (data[i]['likes'] != ''){
+          for (var j=0; j< data[i]['likes'].length; j++){
+            if (data[i]['likes'][j]['authorid'] == req.session.userid ){
+              data[i].author.lname = false;
+            }
+          }
         }
       }
       if (req.session.user) {
