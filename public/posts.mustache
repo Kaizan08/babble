@@ -21,15 +21,20 @@
     </div>
     <div class="post_container">
         {{#post}}
-        <p>Babble: {{babble}}</p>
+        <div class="posts">
+        <p><strong>Babble:</strong> {{babble}}<br>
+        {{updatedAt}}<br></p>
+        </div>
+        <span class="liked">
         <p>These are the users that 'liked' this post!</p>
-        <ul>
-            {{#likes}}
-                {{#user}}
-            <li>{{username}}</li>
-                {{/user}}
-            {{/likes}}
-        </ul>
+            <ul>
+                {{#likes}}
+                    {{#user}}
+                <li>{{username}}</li>
+                    {{/user}}
+                {{/likes}}
+            </ul>
+        </span>
         {{/post}}
     </div>
     </body>

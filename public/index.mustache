@@ -23,10 +23,10 @@
             {{#posts}}
                 <div class="posts">
                     {{^author.username}}
-                    <p>{{username}}: {{babble}}<br>
+                    <p><strong>{{username}}:</strong> {{babble}}<br>
                     {{/author.username}}
                     {{#author.username}}
-                    <p>{{author.username}}: {{babble}}<br>
+                    <p><strong>{{author.username}}:</strong> {{babble}}<br>
                     {{/author.username}}
                     {{updatedAt}}<br>
                     {{#likes.length}}

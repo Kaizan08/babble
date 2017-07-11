@@ -102,3 +102,10 @@ textarea{
     -webkit-appearance: button;
     box-shadow: 1px 2px;
 }
+.liked p{
+    padding: 0px 25px;
+    margin-left: 30px;
+}
+.liked ul{
+    margin-left: 60px;
+}
